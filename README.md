@@ -1,21 +1,25 @@
-This plugin allows your player to bet money or points to become a rich man or a naked guy.
 
-## Dependency
-[Economics](https://umod.org/plugins/economics)
+# Lottery Plugin
+
+This plugin allows players to bet money or points to become a rich man or a naked guy.
+
+## Dependencies
+- [Economics](https://umod.org/plugins/economics)
 
 ## Permissions
 
-- `lottery.canuse` -- Allows players to use the lottery
-- `lottery.canconfig` -- Allows players to configure the lottery
+- `lottery.canuse` — Allows players to use the lottery.
+- `lottery.canconfig` — Allows players to configure the lottery.
 
 ## Chat Commands
 
-- `/lot` -- Open the lottery GUI
-- `/lot add` -- Add NPC you are looking to the list of NPCs
-- `/lot remove` -- Remove NPC you are looking to the list of NPCs
+- `/lot` — Open the lottery GUI.
+- `/lot add` — Add an NPC to the list of NPCs.
+- `/lot remove` — Remove an NPC from the list of NPCs.
 
 ## Configuration
 
+### Global Configuration
 ```json
 {
   "Global": {
@@ -84,45 +88,60 @@ This plugin allows your player to bet money or points to become a rich man or a 
 }
 ```
 
-## Server Rewards
+### Configuration Breakdown
 
-* MinBetJackpot => Here you set the minimum bet required to be able to win the jackpot.
-* Jackpot => How many points have the jackpot.
-* JackpotMatch => Roll number match to win a jackpot.
-* WinPoint => How many points does each match have (see [Economics](https://umod.org/plugins/economics) part).
-* Match => roll match (see Economics part)
-* MinBet => Minimum bet
-* Enabled => Enable ServerRewards support
+#### **Global Settings**
+- `Jackpot` — The amount of points in the jackpot.
+- `JackpotMatch` — The roll number that must match to win the jackpot.
+- `RollMinRange` — The minimum roll range (must be less than `RollMaxRange`).
+- `RollMaxRange` — The maximum roll range (must be greater than or equal to `RollMinRange`).
+- `WinRate` — The win rates for various roll matches. Example: `"111x": 1` means a 1% chance of winning if "111x" is rolled.
 
-## Economics
+#### **Human NPC Configuration**
+- `Enabled` — Enable or disable NPC-only mode.
+- `npcID` — List of NPCs you want to use to display the UI.
 
-* Jackpot => How many $ has the jackpot.
-* JackpotMatch => Roll number match to win a jackpot.
-* RollMinRange => Min roll range must be less than RollMaxRange
-* RollMaxRange => Max roll rang must be superior or equal to RollMinRange
-* WinRate => (see below part)
+#### **Server Rewards**
+- `MinBetJackpot` — Minimum bet required to be eligible for the jackpot.
+- `Jackpot` — The amount of points in the jackpot.
+- `JackpotMatch` — Roll number match to win the jackpot.
+- `WinPoint` — Points awarded for matching rolls (see the [Economics](https://umod.org/plugins/economics) plugin).
+- `Match` — List of roll matches.
+- `MinBet` — The minimum bet amount.
+- `Enabled` — Enable ServerRewards support.
 
-111x is the number the player rolls where "x" means a random number and the "1" after the double dot is the percent of the win rate.
+#### **UI Customization**
+- `BackgroundMainColor` — Background color and transparency for the main UI.
+- `BackgroundMainURL` — Set an image as the background for the main UI (leave blank to remove the image).
+- `BackgroundWinColor` — Background color and transparency for the win UI.
+- `BackgroundWinURL` — Set an image as the background for the win UI (leave blank to remove the image).
+- `anchorMin`, `anchorMax` — Controls the size and placement of the UI.
 
-For example, if a player places a bet of 100 with a multiplier of 4 and rolls 1111 he will win 100*(1/100)*4
+## Gameplay
 
-The "-" " " are both bet multipliers.
+Players can place bets using the lottery system. They will either win or lose based on the win rates and roll results. The **Bet Modifiers** button allows you to adjust how much money you want to place on a bet.
 
-The **Bet modifiers button** is here to put how much money you want to place in a bet.
+The **Place Bet** button allows the player to make the roll and get a chance to win.
 
-The **place bet** button allows you to make the roll and get a chance to win.
+The **`<< and >>`** arrows allow you to switch between different win rates. This is for information only.
 
-The **`<< and >>`** arrow allows you to switch the win rate, this part is only for information.
+### Example Win Calculation
+If a player places a bet of 100 with a multiplier of 4 and rolls `1111`, the winnings would be calculated as:
+
+```
+100 * (1 / 100) * 4 = 4 points/money
+```
 
 ## Human NPC
 
-* Enabled => Turn NPCOnly option on/off (when true, the command is disabled)
-* npcID => List of NPC you want to use to display UI
+- **Enabled**: Turns on/off the NPC-only mode.
+- **npcID**: List of NPCs you want to use to display the lottery UI.
 
 ## User Interface
 
-* BackgroundMainColor => Allows you to change the main background color and transparency
-* BackgroundMainURL => Allows you to set image as background to the main UI(setting to "" will remove image)
-* BackgroundWinColor => Allows you to change the win background color and transparency
-* BackgroundWinURL => Allow you to set image as background to the win UI(setting to "" will remove image)
-* anchorMin, anchorMax => Size and placement of the UI
+- `BackgroundMainColor`: Controls the main background's color and transparency.
+- `BackgroundMainURL`: Set an image URL for the main background (set to `""` to remove).
+- `BackgroundWinColor`: Controls the win screen background color and transparency.
+- `BackgroundWinURL`: Set an image URL for the win screen (set to `""` to remove).
+
+---
